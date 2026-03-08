@@ -1,0 +1,47 @@
+export const dynamic = "force-dynamic";
+import { connectionStr } from "@/app/lib/db";
+import { User } from "@/app/lib/userModel";
+import mongoose from "mongoose";
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+
+export async function POST(request) {
+  try {
+    const { email, password } = await request.json();
+
+    await mongoose.connect(connectionStr);
+
+    // 1️⃣ Find user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: "User not found" },
+        { status: 404 }
+      );
+    }
+
+    // 2️⃣ Compare password with hashed one
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return NextResponse.json(
+        { success: false, message: "Invalid password" },
+        { status: 401 }
+      );
+    }
+
+    // 3️⃣ Remove password before response
+    const userData = user.toObject();
+    delete userData.password;
+
+    return NextResponse.json({ success: true, result: userData });
+
+  } catch (error) {
+    console.error("Login API Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal Server Error", error: error.message },
+      { status: 500 }
+    );
+  }
+}

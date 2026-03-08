@@ -1,0 +1,19 @@
+{
+  "name": "resto-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.3.1",
+    "mongoose": "^9.2.4",
+    "next": "14.1.0",
+    "react": "^18",
+    "react-dom": "^18"
+  }
+}
