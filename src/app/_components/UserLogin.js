@@ -9,7 +9,7 @@ const UserLogin = (props) => {
   const router = useRouter();
 
   const loginHandle = async () => {
-    let response = await fetch("http://localhost:3000/api/user/login", {
+    let response = await fetch("/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

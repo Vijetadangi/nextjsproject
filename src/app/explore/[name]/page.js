@@ -21,7 +21,7 @@ const Page = (props) => {
 
     const loadRestaurantDetails = async () => {
         const id = props.searchParams.id;
-        let response = await fetch("http://localhost:3000/api/customer/" + id)
+        let response = await fetch("/api/customer/" + id)
         response = await response.json();
         if (response.success) {
             setRestaurantDetails(response.details)
