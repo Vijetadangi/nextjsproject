@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { connectDB } from "@/app/lib/db";
-import { Order } from "@/app/lib/ordersMode";
+import { Order } from "@/app/lib/ordersModel";
 import { Restaurant } from "@/app/lib/restaurantsModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";

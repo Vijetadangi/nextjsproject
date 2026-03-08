@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { connectDB } from "@/app/lib/db";
-import { User } from "@/app/lib/userModel";
+import { DeliveryPartner } from "@/app/lib/deliveryPartnersModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
@@ -11,8 +11,8 @@ export async function POST(request) {
 
     await connectDB();
 
-    // 1️⃣ Find user by email
-    const user = await User.findOne({ email });
+    // 1️⃣ Find delivery partner by email
+    const user = await DeliveryPartner.findOne({ email });
 
     if (!user) {
       return NextResponse.json(

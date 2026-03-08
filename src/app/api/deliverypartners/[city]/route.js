@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { connectDB } from "@/app/lib/db";
-import { DeliveryPartner } from "@/app/lib/deliverypartnersMode";
+import { DeliveryPartner } from "@/app/lib/deliveryPartnersModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server"
 
