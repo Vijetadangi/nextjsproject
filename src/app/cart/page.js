@@ -1,23 +1,35 @@
 'use client'
-import { useState } from "react"
-import CustomerHeader from "../_components/CustomerHeader"
-import Footer from "../_components/Footer"
+import { useEffect, useState } from "react"
+import CustomerHeader from "@/app/_components/CustomerHeader"
+import Footer from "@/app/_components/Footer"
 import { DELIVERY_CHARGES, TAX } from "../lib/constant"
 import { useRouter } from "next/navigation"
 
 
 
 const Page = () => {
+    const [cartStorage, setCartStorage] = useState([]);
+    const [total, setTotal] = useState(0);
 
-    const [cartStorage, setCartStorage] = useState(JSON.parse(localStorage.getItem('cart')))
-    const [total]=useState(()=>cartStorage.length==1?cartStorage[0].price:cartStorage.reduce((a,b)=>{
-return a.price+b.price
-    }))
-    const router = useRouter()
-    console.log(total);
+    const router = useRouter();
 
-    const orderNow=()=>{
-        if(JSON.parse(localStorage.getItem('user'))){
+    useEffect(() => {
+        const data = localStorage.getItem('cart');
+        if (data) {
+            const parsedData = JSON.parse(data);
+            setCartStorage(parsedData);
+            if (parsedData.length > 0) {
+                const calculatedTotal = parsedData.length === 1 
+                    ? parsedData[0].price 
+                    : parsedData.reduce((a, b) => (typeof a === 'number' ? a : a.price) + b.price);
+                setTotal(calculatedTotal);
+            }
+        }
+    }, []);
+
+    const orderNow = () => {
+        const user = localStorage.getItem('user');
+        if (user && JSON.parse(user)) {
             router.push('/order')
         }else{
             router.push('/user-auth?order=true')

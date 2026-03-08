@@ -1,19 +1,33 @@
 'use client'
 import { useEffect, useState } from "react"
-import CustomerHeader from "../_components/CustomerHeader"
-import Footer from "../_components/Footer"
+import CustomerHeader from "@/app/_components/CustomerHeader"
+import Footer from "@/app/_components/Footer"
 import { DELIVERY_CHARGES, TAX } from "../lib/constant"
 import { useRouter } from "next/navigation"
 
 
 
 const Page = () => {
+    const [userStorage, setUserStorage] = useState({ name: '', address: '', mobile: '' });
+    const [cartStorage, setCartStorage] = useState([]);
+    const [total, setTotal] = useState(0);
 
-    const [userStorage, setUserStorage] = useState(JSON.parse(localStorage.getItem('user')));
-    const [cartStorage, setCartStorage] = useState(JSON.parse(localStorage.getItem('cart')))
-    const [total] = useState(() => cartStorage?.length == 1 ? cartStorage[0].price : cartStorage?.reduce((a, b) => {
-        return a.price + b.price
-    }))
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        if (user) setUserStorage(JSON.parse(user));
+
+        const cart = localStorage.getItem('cart');
+        if (cart) {
+            const parsedCart = JSON.parse(cart);
+            setCartStorage(parsedCart);
+            if (parsedCart.length > 0) {
+                const calculatedTotal = parsedCart.length === 1 
+                    ? parsedCart[0].price 
+                    : parsedCart.reduce((a, b) => (typeof a === 'number' ? a : a.price) + b.price);
+                setTotal(calculatedTotal);
+            }
+        }
+    }, []);
 
     const [removeCartData, setRemoveCartData] = useState(false)
     const router = useRouter()

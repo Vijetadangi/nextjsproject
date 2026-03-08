@@ -1,9 +1,9 @@
 'use client'
 import { useState } from "react"
-import CustomerHeader from "../_components/CustomerHeader"
-import Footer from "../_components/Footer"
-import UserLogin from "../_components/UserLogin"
-import UserSignUp from "../_components/UserSignUp"
+import CustomerHeader from "@/app/_components/CustomerHeader";
+import Footer from "@/app/_components/Footer";
+import UserLogin from "@/app/_components/UserLogin";
+import UserSignUp from "@/app/_components/UserSignUp";
 
 const UserAuth=(props)=>{
     const [login,setLogin]=useState(true)
