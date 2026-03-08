@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { connectionStr } from "@/app/lib/db";
+import { connectDB } from "@/app/lib/db";
 import { orderSchema } from "@/app/lib/ordersMode";
 import { restaurantSchema } from "@/app/lib/restaurantsModel";
 import mongoose from "mongoose";
@@ -10,7 +10,7 @@ import { NextResponse } from "next/server";
 export async function GET(request,content) {
     const id = content.params.id
     let success = false
-    await mongoose.connect(connectionStr, { useNewUrlParser: true })
+    await connectDB()
     let result = await orderSchema.find({ deliveryBoy_id: id });
     if (result) {
         let restoData = await Promise.all(

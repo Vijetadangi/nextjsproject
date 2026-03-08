@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { connectionStr } from "@/app/lib/db";
+import { connectDB } from "@/app/lib/db";
 import { foodSchema } from "@/app/lib/foodsModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
     const payload = await request.json();
     let success=false;
-    await mongoose.connect(connectionStr, { useNewUrlParser: true });
+    await connectDB();
     const food = new foodSchema(payload);
     const result = await food.save();
     if(result){

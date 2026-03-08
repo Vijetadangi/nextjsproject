@@ -1,11 +1,11 @@
 export const dynamic = "force-dynamic";
-import { connectionStr } from "@/app/lib/db";
+import { connectDB } from "@/app/lib/db";
 import { restaurantSchema } from "@/app/lib/restaurantsModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-    await mongoose.connect(connectionStr, { useNewUrlParser: true });
+    await connectDB();
     const data = await restaurantSchema.find()
     console.log(data);
 
@@ -16,7 +16,7 @@ export async function POST(request) {
     let payload = await request.json();
     let result;
     let success=false
-    await mongoose.connect(connectionStr, { useNewUrlParser: true })
+    await connectDB()
 
     if (payload.login) {
         result = await restaurantSchema.findOne({ email: payload.email, password: payload.password })

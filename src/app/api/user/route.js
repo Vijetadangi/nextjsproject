@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { connectionStr } from "@/app/lib/db";
+import { connectDB } from "@/app/lib/db";
 import { User } from "@/app/lib/userModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
@@ -8,7 +8,7 @@ export async function POST(request) {
   try {
     const { email, password } = await request.json();
 
-    await mongoose.connect(connectionStr);
+    await connectDB();
 
     const user = await User.findOne({ email, password });
 

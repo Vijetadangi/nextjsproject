@@ -1,12 +1,12 @@
 export const dynamic = "force-dynamic";
 import mongoose from "mongoose";
-import { connectionStr } from "@/app/lib/db";
+import { connectDB } from "@/app/lib/db";
 import { Restaurant } from "@/app/lib/restaurantsModel";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    await mongoose.connect(connectionStr);
+    await connectDB();
 
     const data = await Restaurant.find().select("city -_id");
 

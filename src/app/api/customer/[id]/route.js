@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { connectionStr } from "@/app/lib/db";
+import { connectDB } from "@/app/lib/db";
 import { foodSchema } from "@/app/lib/foodsModel";
 import { restaurantSchema } from "@/app/lib/restaurantsModel";
 import mongoose from "mongoose";
@@ -10,7 +10,7 @@ export async function GET(request,content){
     const id = content.params.id;
     console.log(id);
 
-    await mongoose.connect(connectionStr,{useNewUrlParser:true})
+    await connectDB()
     const details=await restaurantSchema.findOne({_id:id})
     const foodItems=await foodSchema.find({resto_id:id})
 

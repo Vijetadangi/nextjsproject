@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { connectionStr } from "@/app/lib/db";
+import { connectDB } from "@/app/lib/db";
 import { foodSchema } from "@/app/lib/foodsModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 export async function GET(request,content){
     const id = content.params.id;
     let success=false;
-    await mongoose.connect(connectionStr,{useNewUrlParser:true});
+    await connectDB();
     const result = await foodSchema.findOne({_id:id})
     if(result){
         success=true
@@ -20,7 +20,7 @@ export async function PUT(request,content){
     const id = content.params.id;
     const payload = await request.json();
     let success=false;
-    await mongoose.connect(connectionStr,{useNewUrlParser:true});
+    await connectDB();
     const result = await foodSchema.findOneAndUpdate({_id:id},payload);
     if(result){
         success=true
