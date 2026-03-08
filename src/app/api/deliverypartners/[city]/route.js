@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { connectDB } from "@/app/lib/db";
-import { deliveryPartnersSchema } from "@/app/lib/deliverypartnersMode";
+import { DeliveryPartner } from "@/app/lib/deliverypartnersMode";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server"
 
@@ -9,6 +9,6 @@ export async function GET(request,content){
     let success=false;
     await connectDB();
     let filter ={city:{$regex:new RegExp(city,'i')}}
-    const result = await deliveryPartnersSchema.find(filter)
+    const result = await DeliveryPartner.find(filter)
    return NextResponse.json({result})
 }

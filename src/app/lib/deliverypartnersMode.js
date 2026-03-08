@@ -1,12 +1,13 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
+const deliveryPartnerSchema = new mongoose.Schema({
+    name: String,
+    mobile: String,
+    password: String,
+    city: String,
+    address: String,
+});
 
-const deliveryPartnersModel= new mongoose.Schema({
-    name:String,
-    mobile:String,
-    password:String,
-    city:String,
-    address:String,
-})
-
-export const deliveryPartnersSchema= mongoose.models.deliverypartners || mongoose.model('deliverypartners',deliveryPartnersModel);
+export const DeliveryPartner =
+    mongoose.models.deliverypartners ||
+    mongoose.model("deliverypartners", deliveryPartnerSchema);

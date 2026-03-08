@@ -1,12 +1,12 @@
 export const dynamic = "force-dynamic";
 import { connectDB } from "@/app/lib/db";
-import { restaurantSchema } from "@/app/lib/restaurantsModel";
+import { Restaurant } from "@/app/lib/restaurantsModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 export async function GET() {
     await connectDB();
-    const data = await restaurantSchema.find()
+    const data = await Restaurant.find()
     console.log(data);
 
     return NextResponse.json({ result: data })
@@ -19,12 +19,12 @@ export async function POST(request) {
     await connectDB()
 
     if (payload.login) {
-        result = await restaurantSchema.findOne({ email: payload.email, password: payload.password })
+        result = await Restaurant.findOne({ email: payload.email, password: payload.password })
         if(result){
             success=true
         }
     } else {
-        const restaurant = new restaurantSchema(payload)
+        const restaurant = new Restaurant(payload)
         result = await restaurant.save();
         if(result){
             success=true;

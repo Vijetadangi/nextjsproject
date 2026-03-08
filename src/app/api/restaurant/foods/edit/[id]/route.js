@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { connectDB } from "@/app/lib/db";
-import { foodSchema } from "@/app/lib/foodsModel";
+import { Food } from "@/app/lib/foodsModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
@@ -9,7 +9,7 @@ export async function GET(request,content){
     const id = content.params.id;
     let success=false;
     await connectDB();
-    const result = await foodSchema.findOne({_id:id})
+    const result = await Food.findOne({_id:id})
     if(result){
         success=true
     }
@@ -21,7 +21,7 @@ export async function PUT(request,content){
     const payload = await request.json();
     let success=false;
     await connectDB();
-    const result = await foodSchema.findOneAndUpdate({_id:id},payload);
+    const result = await Food.findOneAndUpdate({_id:id},payload);
     if(result){
         success=true
     };

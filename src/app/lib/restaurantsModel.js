@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const restaurantSchema = new mongoose.Schema({
+const restaurantSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String },
@@ -9,7 +9,6 @@ export const restaurantSchema = new mongoose.Schema({
   contact: { type: String, required: true }
 });
 
-// Export SINGLE model instance
 export const Restaurant =
   mongoose.models.Restaurant ||
   mongoose.model("Restaurant", restaurantSchema);
